@@ -21,6 +21,7 @@
     "mocha": "^2.1.0"
   },
   "dependencies": {
-    "is_function": "nathanfaucett/is_function"
+    "escape_reg_exp": "git://github.com/nathanfaucett/escape_reg_exp",
+    "is_function": "git://github.com/nathanfaucett/is_function"
   }
 }

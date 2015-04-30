@@ -1,4 +1,5 @@
-var isFunction = require("is_function");
+var isFunction = require("is_function"),
+    escapeRegExp = require("escape_reg_exp");
 
 
 var reHostCtor = /^\[object .+?Constructor\]$/,
@@ -6,29 +7,32 @@ var reHostCtor = /^\[object .+?Constructor\]$/,
     functionToString = Function.prototype.toString,
 
     reNative = RegExp("^" +
-        functionToString.call(toString)
-        .replace(/[.*+?^${}()|[\]\/\\]/g, "\\$&")
+        escapeRegExp(Object.prototype.toString)
         .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
     ),
 
-    isHostObject = (function() {
-        try {
-            String({
-                "toString": 0
-            } + "");
-        } catch (e) {
-            return function isHostObject() {
-                return false;
-            };
-        }
-
-        return function isHostObject(value) {
-            return !isFunction(value.toString) && typeof(value + "") === "string";
-        };
-    }());
+    isHostObject;
 
 
-module.exports = function isNative(obj) {
+try {
+    String({
+        "toString": 0
+    } + "");
+} catch (e) {
+    isHostObject = function isHostObject() {
+        return false;
+    };
+}
+
+isHostObject = function isHostObject(value) {
+    return !isFunction(value.toString) && typeof(value + "") === "string";
+};
+
+
+module.exports = isNative;
+
+
+function isNative(obj) {
     return obj && (
         isFunction(obj) ?
         reNative.test(functionToString.call(obj)) : (
@@ -37,4 +41,4 @@ module.exports = function isNative(obj) {
             )
         )
     ) || false;
-};
+}
