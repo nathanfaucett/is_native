@@ -1,4 +1,5 @@
 var isFunction = require("is_function"),
+    isNullOrUndefined = require("is_null_or_undefined"),
     escapeRegExp = require("escape_reg_exp");
 
 
@@ -14,6 +15,20 @@ var reHostCtor = /^\[object .+?Constructor\]$/,
     isHostObject;
 
 
+module.exports = isNative;
+
+
+function isNative(value) {
+    return !isNullOrUndefined(value) && (
+        isFunction(value) ?
+        reNative.test(functionToString.call(value)) : (
+            typeof(value) === "object" && (
+                (isHostObject(value) ? reNative : reHostCtor).test(value) || false
+            )
+        )
+    ) || false;
+}
+
 try {
     String({
         "toString": 0
@@ -27,18 +42,3 @@ try {
 isHostObject = function isHostObject(value) {
     return !isFunction(value.toString) && typeof(value + "") === "string";
 };
-
-
-module.exports = isNative;
-
-
-function isNative(obj) {
-    return obj && (
-        isFunction(obj) ?
-        reNative.test(functionToString.call(obj)) : (
-            typeof(obj) === "object" && (
-                (isHostObject(obj) ? reNative : reHostCtor).test(obj) || false
-            )
-        )
-    ) || false;
-}

@@ -7,6 +7,9 @@
     "url": "https://github.com/nathanfaucett/is_native.git"
   },
   "main": "src/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "keywords": [
     "is_native",
     "is_native.js"
@@ -22,6 +25,7 @@
   },
   "dependencies": {
     "escape_reg_exp": "git://github.com/nathanfaucett/escape_reg_exp",
-    "is_function": "git://github.com/nathanfaucett/is_function"
+    "is_function": "git://github.com/nathanfaucett/is_function",
+    "is_null_or_undefined": "git://github.com/nathanfaucett/is_null_or_undefined.git"
   }
 }
