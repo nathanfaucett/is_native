@@ -1,6 +1,6 @@
 var isFunction = require("is_function"),
     isNullOrUndefined = require("is_null_or_undefined"),
-    escapeRegExp = require("escape_reg_exp");
+    escapeRegExp = require("escape_regexp");
 
 
 var reHostCtor = /^\[object .+?Constructor\]$/,
