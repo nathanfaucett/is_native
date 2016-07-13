@@ -1,6 +1,6 @@
 {
   "name": "@nathanfaucett/is_native",
-  "version": "0.0.12",
+  "version": "0.0.2",
   "description": "checks if value is a native function or object",
   "repository": {
     "type": "git",
